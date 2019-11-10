@@ -1,5 +1,5 @@
 const config = {
-    service:''
+    service:'http://localhost:3090'
 };
 
 export default config
