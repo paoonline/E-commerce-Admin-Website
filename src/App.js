@@ -22,13 +22,15 @@ const App = (props) => {
     if (props.isAuthenticated) {
       ComponentAuthen = (
         <Admin>
-          <ProductList />
+         {Component}
         </Admin>
       )
     }
     //not authen
     if (!props.isAuthenticated) {
-      ComponentAuthen = <Login />
+      ComponentAuthen = (
+        <Login/>
+      )
     }
     return ComponentAuthen
   }
