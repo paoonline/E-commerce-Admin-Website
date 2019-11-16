@@ -28,8 +28,6 @@ export const authFail = (error) => {
 // return new state remove localStorage for logout
 export const logout = () => {
     localStorage.removeItem('token')
-    // localStorage.removeItem('expirationDate')
-    // localStorage.removeItem('userId')
     return {
         type: actionTypes.AUTH_LOGOUT
     }
@@ -46,16 +44,13 @@ export const auth = (email, password, isSignup) => {
 
         apiGatewayInstance.post('/signin', authData)
             .then(res => {
-                // const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000)
-
-                // localStorage.setItem('expirationDate', expirationDate)
-                // localStorage.setItem('userId', res.data.localId)
                 localStorage.setItem('token', res.data.token);
                 dispatch(authSuccess(res.data.token))
-                // dispatch(checkAuthTimeout(res.data.expiresIn))
             })
             .catch(err => {
-                console.log(err.response.data)
+                if(err){
+                    throw err
+                }
                 dispatch(authFail(err.response.data))
             })
     }

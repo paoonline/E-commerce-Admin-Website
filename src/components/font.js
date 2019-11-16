@@ -1,13 +1,8 @@
 import React from 'react';
-import styled from 'styled-components'
-
-const Font = styled.span`
-    font-size:18px;
-    font-weight:bold;
-`
+import { FontTitle } from './style'
 
 const Title = ({ children }) => (
-    <Font>{children}</Font>
+    <FontTitle>{children}</FontTitle>
 );
 
 export default Title

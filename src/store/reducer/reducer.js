@@ -3,10 +3,8 @@ import { updateObject } from  '../../util/etc'
 
 const initialState = {
     token: null,
-    userId: null,
     error: null,
     loading: false,
-    authRedirectPath: '/'
 }
 
 // return new state before login success
@@ -18,7 +16,6 @@ const authStart = (state, action) => {
 const authSuccess = (state, action) => {
     return updateObject(state, {
         token: action.idToken,
-        // userId: action.userId,
         error: null,
         loading: false
     })
@@ -34,7 +31,7 @@ const authFail = (state, action) => {
 
 // return new state remove localStorage for logout
 const authLogout = (state, action) => {
-    return updateObject(state, {token: null, userId: null})
+    return updateObject(state, {token: null})
 }
 
 // return reducer from variable

@@ -1,12 +1,8 @@
 import React from 'react';
-import styled from 'styled-components'
-
-const Font = styled.span`
-    color:red
-`
+import { FontRed } from './style'
 
 const Textvalidate = ({ children }) => (
-    <Font>{children}</Font>
+    <FontRed>{children}</FontRed>
 );
 
 export default Textvalidate

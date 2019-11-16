@@ -18,7 +18,7 @@ const Login = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [requird, setRequird] = useState(false)
-    
+
     const handleSubmit = e => {
         e.preventDefault()
         if (email === "" || password === "") {
@@ -29,13 +29,13 @@ const Login = (props) => {
     }
 
     useEffect(() => {
-        if(props.isAuthenticated){
+        if (props.isAuthenticated && props.history.location.pathnname === '/login') {
             props.history.push('/productList')
         }
         return () => {
             console.log("cleaned up");
-          };
-    },[props, props.isAuthenticated])
+        };
+    }, [props, props.isAuthenticated])
 
     return (
         <Flex>
@@ -59,7 +59,7 @@ const Login = (props) => {
                     />
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+                    <Button type="primary" htmlType="submit" style={{ width: '100%' }} loading={props.loading}>
                         Log in
                     </Button>
                 </Form.Item>
@@ -72,9 +72,10 @@ const Login = (props) => {
 
 const mapStateToProps = state => {
     return {
-      isAuthenticated: state.auth.token !== null // token from authen
+        loading: state.auth.loading,
+        isAuthenticated: state.auth.token !== null // token from authen
     }
-  }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
