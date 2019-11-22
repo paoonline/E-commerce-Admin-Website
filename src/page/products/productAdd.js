@@ -66,7 +66,7 @@ const ProductAdd = (props) => {
                         Modal.success({
                             content: 'Successfully',
                             onOk() {
-                                props.history.push('/productList')
+                                props.history.push('/products/productList')
                             },
                             onCancel() { },
                         });
@@ -89,7 +89,7 @@ const ProductAdd = (props) => {
     return (
         <Container>
             <Form className="login-form" onSubmit={handleSubmit}>
-                <Header title="ProductCreate" text="BACK" link="/productList" create={true} loading={loading}/>
+                <Header title="ProductCreate" text="BACK" link="/products/productList" create={true} loading={loading}/>
                 <Row>
                     <Col span={8} style={{ position: "relative", top: 12 }}>
                         <ImageUpload func={func} />

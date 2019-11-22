@@ -23,7 +23,7 @@ const Admin = ({ children, onLogout, history }) => {
                     </Menu.Item>
 
                     <Menu.Item key="1">
-                        <Link to="/productList">
+                        <Link to="/products/productList">
                             <Icon type="shop" />
                             <span>Product</span>
                         </Link>

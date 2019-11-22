@@ -22,7 +22,7 @@ const Login = (props) => {
 
     useEffect(() => {
         if (props.isAuthenticated && props.history.location.pathnname === '/login') {
-            props.history.push('/productList')
+            props.history.push('/products/productList')
         }
         return () => {
         };

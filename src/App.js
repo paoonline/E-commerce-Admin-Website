@@ -15,7 +15,7 @@ const App = (props) => {
     <Switch>
       <Route path="/login" component={() => props.isAuthenticated ? null : AuthenRoute(Login)} />
       <Route exact path="/" component={() => AuthenRoute(<ProductList token={localStorage.getItem('token')} />)} />
-      <Route path="/productList" component={() => AuthenRoute(<ProductList token={localStorage.getItem('token')} />)} />
+      <Route path="/products/productList" component={() => AuthenRoute(<ProductList token={localStorage.getItem('token')} />)} />
       <Route path="/products/productAdd" component={() => AuthenRoute(<ProductAdd token={localStorage.getItem('token')}/>)} />
       <Route path="/products/productEdit/:id" component={() => AuthenRoute(<ProductEdit token={localStorage.getItem('token')}/>)} />
     </Switch>

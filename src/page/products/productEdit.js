@@ -75,7 +75,7 @@ const ProductEdit = (props) => {
                         Modal.success({
                             content: 'Successfully',
                             onOk() {
-                                props.history.push('/productList')
+                                props.history.push('/products/productList')
                             },
                             onCancel() { },
                         });
@@ -98,7 +98,6 @@ const ProductEdit = (props) => {
 
     useEffect(() => {
         let unmounted = false;
-        console.log(initData)
         if (initData === false) {
             setLoading(true);
             setInitData(true)
@@ -132,7 +131,7 @@ const ProductEdit = (props) => {
             {loading && <Icon type="loading" style={{ fontSize: '100px' }} />}
             {!loading && init.productName &&
                 <Form className="login-form" onSubmit={handleSubmit}>
-                    <Header title="ProductEdit" text="BACK" link="/productList" create={true} loading={loadingSave} />
+                    <Header title="ProductEdit" text="BACK" link="/products/productList" create={true} loading={loadingSave} />
                     <Row>
                         <Col span={8} style={{ position: "relative", top: 12 }}>
                             <ImageUpload func={func} imagePath={init.imagePath} />
