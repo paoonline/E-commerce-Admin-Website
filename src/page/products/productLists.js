@@ -105,7 +105,7 @@ const ProductList = (props) => {
             {!loading && initData.length > 0 ?
                 <Table data={initData} func={{
                     delete: (id) => handleDelete(id),
-                }} /> : !loading && 'ไม่มีข้อมูล'
+                }} /> : !loading && 'No data'
             }
         </Container>
     )
