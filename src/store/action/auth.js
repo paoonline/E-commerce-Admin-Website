@@ -48,10 +48,10 @@ export const auth = (email, password, isSignup) => {
                 dispatch(authSuccess(res.data.token))
             })
             .catch(err => {
+                dispatch(authFail(err.response.data))
                 if(err){
                     throw err
                 }
-                dispatch(authFail(err.response.data))
             })
     }
 }

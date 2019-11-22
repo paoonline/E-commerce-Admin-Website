@@ -17,7 +17,7 @@ const App = (props) => {
       <Route exact path="/" component={() => AuthenRoute(<ProductList token={localStorage.getItem('token')} />)} />
       <Route path="/productList" component={() => AuthenRoute(<ProductList token={localStorage.getItem('token')} />)} />
       <Route path="/products/productAdd" component={() => AuthenRoute(<ProductAdd token={localStorage.getItem('token')}/>)} />
-      <Route path="/products/productEdit" component={() => AuthenRoute(<ProductEdit token={localStorage.getItem('token')}/>)} />
+      <Route path="/products/productEdit/:id" component={() => AuthenRoute(<ProductEdit token={localStorage.getItem('token')}/>)} />
     </Switch>
   )
 

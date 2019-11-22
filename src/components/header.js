@@ -3,14 +3,22 @@ import { Row, Typography, Button } from 'antd'
 import { Link } from 'react-router-dom'
 const { Title } = Typography;
 
-const Header = ({ title, link, text }) => (
+const Header = ({ title, link, text, create, loading }) => (
     <div>
+        {create}
         <Row justify="space-between" type="flex">
             <Title level={2}>{title}</Title>
-            <Button type="primary" style={{ marginTop: 7 }}>
-                <Link to={link}>{text}</Link>
-            </Button>
+            <div>
+                <Button type="primary" style={{ marginTop: 7,marginRight:10 }}>
+                    <Link to={link}>{text}</Link>
+                </Button>
+                {create && <Button type="primary" style={{ marginTop: 7, marginLeft: 20 }} htmlType="submit" loading={loading}>
+                    SAVE
+                </Button>
+                }
+            </div>
         </Row>
+        <hr />
     </div>
 )
 

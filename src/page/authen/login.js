@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components'
 import { Title, TextValidate } from '../../components'
+import { FlexLogin} from '../../components/style'
 import { Form, Icon, Input, Button } from 'antd';
 import { connect } from 'react-redux'
 import * as actions from '../../store/action'
 import { withRouter } from 'react-router-dom'
-
-const Flex = styled.div`
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100%;
-    flex-direction:column;
-`
 
 const Login = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [requird, setRequird] = useState(false)
 
-    const handleSubmit = e => {
+    const handleSubmit = (e) => {
         e.preventDefault()
         if (email === "" || password === "") {
             setRequird(true)
@@ -33,12 +25,11 @@ const Login = (props) => {
             props.history.push('/productList')
         }
         return () => {
-            console.log("cleaned up");
         };
     }, [props, props.isAuthenticated])
 
     return (
-        <Flex>
+        <FlexLogin>
             <Title>
                 Welcome
             </Title>
@@ -64,16 +55,18 @@ const Login = (props) => {
                     </Button>
                 </Form.Item>
             </Form>
-            {((email === "" || password === "") && requird) && <TextValidate>โปรดกรอกข้อมูล</TextValidate>}
-        </Flex>
+            {((email === "" || password === "") && requird)  && <TextValidate>Please input information</TextValidate>}
+            {props.error  && <TextValidate>{props.error}</TextValidate>}
+        </FlexLogin>
     )
 }
 
 
 const mapStateToProps = state => {
     return {
+        error: state.auth.error,
         loading: state.auth.loading,
-        isAuthenticated: state.auth.token !== null // token from authen
+        isAuthenticated: state.auth.token !== null
     }
 }
 

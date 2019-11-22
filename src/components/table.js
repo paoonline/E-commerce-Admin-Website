@@ -3,6 +3,7 @@ import { Table, Avatar } from 'antd';
 import { Modal } from '../components'
 import config from '../util/config'
 import { Link } from 'react-router-dom'
+import moment from 'moment';
 
 const TableList = (props) => {
     const { func } = props
@@ -48,12 +49,12 @@ const TableList = (props) => {
     const data = props.data.map((val, i) => {
         return {
             key: i + '_' + val.productName,
-            no: i,
+            no: i + 1,
             productName: val.productName,
             productQuantity: val.productQuantity,
-            productModify: new Date(new Date(val.productModify)).toDateString(),
-            imagePath: <Avatar src={config.service + "/images/" + val.imagePath} />,
-            edit: <Link to={`/products/productEdit?id=${val._id}`}><Modal icon="edit" /></Link>,
+            productModify: moment(val.productModify).format('DD/MM/YYYY HH:mm:ss'),
+            imagePath: <Avatar src={ val.imagePath ? config.service + "/images/" + val.imagePath : null} icon="shop" />,
+            edit: <Link to={`/products/productEdit/${val._id}`}><Modal icon="edit" /></Link>,
             delete: <Modal icon="delete" funcs={() =>
                 func.delete(val._id)}
             />

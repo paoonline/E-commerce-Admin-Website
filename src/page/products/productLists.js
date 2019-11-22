@@ -9,7 +9,7 @@ const ProductList = (props) => {
     const [initData, setInitData] = useState([])
     const [status, setStatus] = useState("")
     let timeout;
-    let unmounted = false;
+
     const handleSearch = (e) => {
         const value = e.target.value
 
@@ -24,13 +24,14 @@ const ProductList = (props) => {
                             authorization: props.token,
                         }
                     }).then((val) => {
-                        val.data && setInitData([val.data])
+                        val.data.length > 0 && setInitData(val.data)
+                        return
                     })
                 } catch (error) {
                     throw error
                 }
             }, 500)
-        }else{
+        } else {
             initHandle()
         }
     }
@@ -45,6 +46,8 @@ const ProductList = (props) => {
                 const newData = await initData.filter(val => val._id !== _id)
                 setInitData(newData)
                 setStatus(true)
+            }).catch(() => {
+                setStatus(false)
             })
         } catch (error) {
             setStatus(false)
@@ -52,6 +55,24 @@ const ProductList = (props) => {
     }
 
     const initHandle = () => {
+        try {
+            apiGatewayInstance.get('/product_list', {
+                headers: {
+                    authorization: props.token,
+                },
+            }).then(async (val) => {
+                setInitData(val.data)
+                setLoading(false);
+            })
+        } catch (error) {
+            setLoading(false);
+            throw error
+        }
+    }
+
+    useEffect(() => {
+        let unmounted = false;
+        setLoading(true);
         try {
             apiGatewayInstance.get('/product_list', {
                 headers: {
@@ -69,22 +90,16 @@ const ProductList = (props) => {
                 throw error
             }
         }
-    }
-
-    useEffect(() => {
-        setLoading(true);
-        initHandle()
         return () => { unmounted = true };
     }, [props]);
 
     return (
         <Container>
             <Header title="ProductList" text="CREATE" link="/products/productAdd" />
-            <hr />
             <Flex>
                 <div style={{ marginLeft: '5rem' }} />
-                {status && <Alert  style={{height:40}} message={status ? "Successfully" : "Fail"} type={status ? "success" : "error"} />}
-                <NewInput placeholder="Search productName" suffix={<Icon type="search" className="certain-category-icon" />} onChange={handleSearch} />
+                {status && <Alert style={{ height: 40 }} message={status ? "Successfully" : "Fail"} type={status ? "success" : "error"} />}
+                {initData.length > 0 && <NewInput style={{ marginRight: 10 }} placeholder="Search productName" suffix={<Icon type="search" className="certain-category-icon" />} onChange={handleSearch} />}
             </Flex>
             {loading && <Icon type="loading" style={{ fontSize: '100px' }} />}
             {!loading && initData.length > 0 ?

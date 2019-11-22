@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Avatar,Input } from 'antd';
+import { Avatar, Input } from 'antd';
 
 export const FontRed = styled.span`
     color:red
@@ -30,4 +30,24 @@ export const NewInput = styled(Input)`
 export const Flex = styled.div`
     display:flex;
     justify-content:space-between
+`
+
+export const MarginStyle = styled.div`
+    margin-top:7px;
+    margin-left:${props => props.left ? 20 : 0}
+`
+
+export const ImageUploadFile = styled.img`
+    max-width:300px;
+    height: 300px;
+    display:flex;
+    width:100%;
+`
+
+export const FlexLogin = styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100%;
+    flex-direction:column;
 `
