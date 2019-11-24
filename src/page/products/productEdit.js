@@ -169,7 +169,7 @@ const ProductEdit = (props) => {
                             </Col>
                             <Col span={14} />
                             <Col span={24}>
-                                {!validate && <TextValidate>Please input your description!</TextValidate>}
+                                {!validate && productDescription.match('<p></p>') && <TextValidate>Please input your description!</TextValidate>}
                                 <TextEditor
                                     description={productDescription}
                                     onModelChange={text => setProductDescription(text)}
