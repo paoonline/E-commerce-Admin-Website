@@ -26,7 +26,7 @@ const ModalShow = (props) => {
   };
 
   return (
-    <div>
+    <div id="modalDelete">
       <NewAvatar icon={props.icon} onClick={showModal}>
         Open Modal
       </NewAvatar>

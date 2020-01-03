@@ -14,10 +14,10 @@ const App = (props) => {
   let auth = (
     <Switch>
       <Route path="/login" component={() => props.isAuthenticated ? null : AuthenRoute(Login)} />
-      <Route exact path="/" component={() => AuthenRoute(<ProductList token={localStorage.getItem('token')} />)} />
-      <Route path="/products/productList" component={() => AuthenRoute(<ProductList token={localStorage.getItem('token')} />)} />
-      <Route path="/products/productAdd" component={() => AuthenRoute(<ProductAdd token={localStorage.getItem('token')}/>)} />
-      <Route path="/products/productEdit/:id" component={() => AuthenRoute(<ProductEdit token={localStorage.getItem('token')}/>)} />
+      <Route exact path="/" component={() => AuthenRoute(<ProductList/>)} />
+      <Route path="/products/productList" component={() => AuthenRoute(<ProductList/>)} />
+      <Route path="/products/productAdd" component={() => AuthenRoute(<ProductAdd/>)} />
+      <Route path="/products/productEdit/:id" component={() => AuthenRoute(<ProductEdit/>)} />
     </Switch>
   )
 
