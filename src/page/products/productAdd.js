@@ -5,6 +5,7 @@ import { Form, Icon, Input, Row, Col, Modal } from 'antd';
 import { apiGatewayInstance } from '../../util/axiosInstance'
 import { withRouter } from 'react-router-dom'
 
+const getToken = localStorage.getItem("token")
 const ProductAdd = (props) => {
     const [imageFile, setImageFile] = useState(null)
     const [productDescription, setProductDescription] = useState("")
@@ -24,7 +25,7 @@ const ProductAdd = (props) => {
             apiGatewayInstance.post('/image_upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    authorization: props.token,
+                    authorization: getToken,
                 }
             }).then((val) => {
                 return true
@@ -56,7 +57,7 @@ const ProductAdd = (props) => {
                 try {
                     apiGatewayInstance.put('/product_create', formData, {
                         headers: {
-                            authorization: props.token,
+                            authorization: getToken,
                         }
                     }).then(async (val) => {
                         setLoading(false)

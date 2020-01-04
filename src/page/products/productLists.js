@@ -4,10 +4,12 @@ import { Container, NewInput, Flex } from '../../components/style'
 import { apiGatewayInstance } from '../../util/axiosInstance'
 import { Icon, Alert } from 'antd';
 
+const getToken = localStorage.getItem("token")
 const ProductList = (props) => {
     const [loading, setLoading] = useState(false)
     const [initData, setInitData] = useState([])
     const [status, setStatus] = useState("")
+    const {test, tableNodata, dataTest} = props;
     let timeout;
 
     const handleSearch = (e) => {
@@ -21,7 +23,7 @@ const ProductList = (props) => {
                 try {
                     apiGatewayInstance.get(`/product_search?productName=${value}`, {
                         headers: {
-                            authorization: props.token,
+                            authorization: getToken,
                         }
                     }).then((val) => {
                         val.data.length > 0 && setInitData(val.data)
@@ -40,7 +42,7 @@ const ProductList = (props) => {
         try {
             apiGatewayInstance.delete(`/product_delete?_id=${_id}`, {
                 headers: {
-                    authorization: props.token,
+                    authorization: getToken
                 }
             }).then(async () => {
                 const newData = await initData.filter(val => val._id !== _id)
@@ -58,7 +60,7 @@ const ProductList = (props) => {
         try {
             apiGatewayInstance.get('/product_list', {
                 headers: {
-                    authorization: props.token,
+                    authorization: getToken,
                 },
             }).then(async (val) => {
                 setInitData(val.data)
@@ -73,10 +75,17 @@ const ProductList = (props) => {
     useEffect(() => {
         let unmounted = false;
         setLoading(true);
+
+        // for test
+        if(test){
+            setInitData(dataTest)
+            return
+        }
+
         try {
             apiGatewayInstance.get('/product_list', {
                 headers: {
-                    authorization: props.token,
+                    authorization: getToken,
                 },
             }).then(async (val) => {
                 if (!unmounted) {
@@ -91,19 +100,19 @@ const ProductList = (props) => {
             }
         }
         return () => { unmounted = true };
-    }, [props]);
+    }, [props, test, dataTest]);
 
     return (
         <Container>
             <Header title="ProductList" text="CREATE" link="/products/productAdd" />
-            <Flex>
+            <Flex style={{ justifyContent: !loading && initData.length <= 0 ? "center" : "space-between" }}>
                 <div style={{ marginLeft: '5rem' }} />
-                {status && <Alert style={{ height: 40 }} message={status ? "Successfully" : "Fail"} type={status ? "success" : "error"} />}
+                {status && <Alert style={{ height: 40, justifyContent:"center" }} message={status ? "Successfully" : "Fail"} type={status ? "success" : "error"} />}
                 {initData.length > 0 && <NewInput style={{ marginRight: 10 }} placeholder="Search productName" suffix={<Icon type="search" className="certain-category-icon" />} onChange={handleSearch} />}
             </Flex>
             {loading && <Icon type="loading" style={{ fontSize: '100px' }} />}
-            {!loading && initData.length > 0 ?
-                <Table data={initData} func={{
+            {(!loading && initData.length > 0 &&  tableNodata === undefined )|| (test && tableNodata === undefined ) ?
+                <Table className="listProduct" data={initData} func={{
                     delete: (id) => handleDelete(id),
                 }} /> : !loading && 'No data'
             }

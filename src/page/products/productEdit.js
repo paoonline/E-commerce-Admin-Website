@@ -5,6 +5,7 @@ import { Form, Icon, Input, Row, Col, Modal } from 'antd';
 import { apiGatewayInstance } from '../../util/axiosInstance'
 import { withRouter } from 'react-router-dom'
 
+const getToken = localStorage.getItem("token")
 const ProductEdit = (props) => {
     const [imageFile, setImageFile] = useState(null)
     const [productDescription, setProductDescription] = useState("")
@@ -31,7 +32,7 @@ const ProductEdit = (props) => {
             apiGatewayInstance.post('/image_upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    authorization: props.token,
+                    authorization: getToken,
                 }
             }).then((val) => {
                 return true
@@ -65,7 +66,7 @@ const ProductEdit = (props) => {
                 try {
                     apiGatewayInstance.post('/product_update', formData, {
                         headers: {
-                            authorization: props.token,
+                            authorization: getToken,
                         }
                     }).then(async (val) => {
                         setLoadingSave(false)
@@ -101,10 +102,20 @@ const ProductEdit = (props) => {
         if (initData === false) {
             setLoading(true);
             setInitData(true)
+            if(props.test){
+                const {productName, productQuantity, imagePath} = props.dataTest
+                setProductDescription('1')
+                setInit({
+                    productName: productName,
+                    productQuantity: productQuantity,
+                    imagePath: imagePath
+                })
+                setLoading(false);
+            }      
             try {
                 apiGatewayInstance.get(`/product_editone?_id=${props.match.params.id}`, {
                     headers: {
-                        authorization: props.token,
+                        authorization: getToken,
                     }
                 }).then((res) => {
                     setLoading(false);
@@ -124,7 +135,7 @@ const ProductEdit = (props) => {
             }
         }
         return () => { unmounted = true };
-    }, [props,initData])
+    }, [props, initData])
 
     return (
         <Container>
