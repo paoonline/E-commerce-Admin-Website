@@ -21,7 +21,6 @@ afterEach(() => {
 });
 
 describe('productAdd test', () => {
-
   it('test submit form fail', () => {
     wrapper.find('form').simulate('submit')
     wrapper.update()

@@ -102,6 +102,16 @@ const ProductEdit = (props) => {
         if (initData === false) {
             setLoading(true);
             setInitData(true)
+            if(props.test){
+                const {productName, productQuantity, imagePath} = props.dataTest
+                setProductDescription('1')
+                setInit({
+                    productName: productName,
+                    productQuantity: productQuantity,
+                    imagePath: imagePath
+                })
+                setLoading(false);
+            }      
             try {
                 apiGatewayInstance.get(`/product_editone?_id=${props.match.params.id}`, {
                     headers: {
@@ -125,7 +135,7 @@ const ProductEdit = (props) => {
             }
         }
         return () => { unmounted = true };
-    }, [props,initData])
+    }, [props, initData])
 
     return (
         <Container>
