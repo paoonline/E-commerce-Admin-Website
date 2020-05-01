@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import { BrowserRouter } from 'react-router-dom'
-import authReducer from './store/reducer/reducer'
+import { authReducer } from './store/reducer/'
 import thunk from 'redux-thunk'
 
 export default ({ children, intl = {} }) => {

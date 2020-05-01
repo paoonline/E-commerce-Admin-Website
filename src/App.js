@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import { Admin } from './layout'
-import { Login, ProductList, ProductAdd, ProductEdit } from './page'
+import { Login, ProductList, ProductAdd, ProductEdit } from './container'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actions from './store/action/index'

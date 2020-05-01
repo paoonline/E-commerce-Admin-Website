@@ -1,6 +1,6 @@
 import React from 'react'
 import Root from '../../Root'
-import { ProductAdd } from '../../page'
+import { ProductAdd } from '../../container'
 import { mount } from 'enzyme'
 import moxios from 'moxios'
 import axios from 'axios'
