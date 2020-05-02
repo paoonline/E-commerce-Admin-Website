@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Avatar, Input } from 'antd';
+import { Avatar, Input, Alert } from 'antd';
 
 export const FontRed = styled.span`
     color:red
@@ -50,4 +50,13 @@ export const FlexLogin = styled.div`
     align-items:center;
     height:100%;
     flex-direction:column;
+`
+
+export const MarginLeft = styled.div`
+    margin-left: 5rem
+`
+
+export const AlertStyle = styled(Alert)`
+    height: 40px;
+    justify-content: center
 `

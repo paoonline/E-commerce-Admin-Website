@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import { BrowserRouter } from 'react-router-dom'
-import { authReducer } from './store/reducer/'
+import { authReducer, listReducer } from './store/reducer/'
 import thunk from 'redux-thunk'
 
 export default ({ children, intl = {} }) => {
@@ -12,7 +12,8 @@ export default ({ children, intl = {} }) => {
 
     // combine reducer
     const rootReducer = combineReducers({
-        auth: authReducer
+        auth: authReducer,
+        list: listReducer
     })
 
     const store = createStore(rootReducer, intl, composeEnhancers(applyMiddleware(thunk)))
