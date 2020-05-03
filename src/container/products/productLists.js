@@ -42,7 +42,7 @@ const ProductList = (props) => {
 
     return (
         <Container>
-            <Header title="ProductList" text="CREATE" link="/products/productAdd" />
+            <Header title="ProductList" text="CREATE" link="/products/productAddEdit" />
             <Flex style={{ justifyContent: !loading && dataList.list.length <= 0 ? "center" : "space-between" }}>
                 <MarginLeft/>
                 {status && <AlertStyle message={status ? "Successfully" : "Fail"} type={status ? "success" : "error"} />}

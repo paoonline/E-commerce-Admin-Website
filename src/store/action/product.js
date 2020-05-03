@@ -20,6 +20,46 @@ export const productFetch = () => {
     }
 }
 
+export const productAddAsync = (params) => {
+    return dispatch => {
+        dispatch(productAdd())
+        try {
+            return apiGatewayInstance.put('/product_create', params, {
+                headers: {
+                    authorization: getToken,
+                }
+            }).then((val) => {
+                dispatch(productSave(true))
+                return {status: true, id: val.data._id}
+            }).catch(() => {
+                dispatch(productSave(false))
+                return false
+            })
+        } catch (error) {
+            throw error
+        }
+    }
+}
+
+export const productAddImage = (formData) => {
+    return () => {
+        try {
+            return apiGatewayInstance.post('/image_upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    authorization: getToken,
+                }
+            }).then((val) => {
+                return true
+            }).catch(() => {
+                return false
+            })
+        } catch (error) {
+            throw error
+        }
+    }
+}
+
 export const productSearch = (text) => {
     return dispatch => {
         try {
@@ -36,7 +76,6 @@ export const productSearch = (text) => {
     }
 }
 
-
 export const productDelete = (id, list) => {
     return dispatch => {
         dispatch(productStart('delete'))
@@ -52,6 +91,21 @@ export const productDelete = (id, list) => {
         } catch (error) {
             dispatch(productStatusDelete(false))
         }
+    }
+}
+
+
+export const productAdd = (params) => {
+    return {
+        type: actionTypes.PRODUCT_ADD,
+        status: params
+    }
+}
+
+export const productSave = (params) => {
+    return {
+        type: actionTypes.PRODUCT_SAVE,
+        status: params
     }
 }
 

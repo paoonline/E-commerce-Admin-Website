@@ -2,38 +2,34 @@ import React, { useState } from 'react'
 import { Header, ImageUpload, TextEditor,TextValidate } from '../../components'
 import { Container } from '../../components/style'
 import { Form, Icon, Input, Row, Col, Modal } from 'antd';
-import { apiGatewayInstance } from '../../util/axiosInstance'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import * as actions from '../../store/action'
 
-const getToken = localStorage.getItem("token")
-const ProductAdd = (props) => {
+const ProductAddEdit = (props) => {
     const [imageFile, setImageFile] = useState(null)
     const [productDescription, setProductDescription] = useState("")
     const [validate, setValidate] = useState(true)
-    const [loading, setLoading] = useState(false)
-
+    const { save, loading, uploadImage } = props
     const { getFieldDecorator } = props.form;
+
     const func = {
         imageFile: (val) => setImageFile(val)
     }
 
-    const handleUpload = (_id) => {
+    const handleUpload = async (_id) => {
         let formData = new FormData()
         formData.append('image', imageFile)
         formData.append('_id', _id)
         try {
-            apiGatewayInstance.post('/image_upload', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    authorization: getToken,
-                }
-            }).then((val) => {
+            const saveData = await uploadImage(formData)
+            if(saveData) {
                 return true
-            }).catch(() => {
+            } else{
                 Modal.error({
                     content: 'please check imageFile',
                 });
-            })
+            }
         } catch (error) {
             throw error
         }
@@ -41,8 +37,7 @@ const ProductAdd = (props) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        props.form.validateFields((err, values) => {
-
+        props.form.validateFields(async (err, values) => {
             if(productDescription.match('<p></p>')){
                 setValidate(false)
                 return
@@ -53,17 +48,12 @@ const ProductAdd = (props) => {
                 formData.append('productNames', values.productName)
                 formData.append('productQuantitys', values.productQuantity)
                 formData.append('productDescriptions', productDescription)
-                setLoading(true)
                 try {
-                    apiGatewayInstance.put('/product_create', formData, {
-                        headers: {
-                            authorization: getToken,
-                        }
-                    }).then(async (val) => {
-                        setLoading(false)
-                        if (imageFile !== null) {
-                            await handleUpload(val.data._id)
-                        }
+                    const saveData =  await save(formData)
+                    if (imageFile !== null && !!saveData.id) {
+                        handleUpload(saveData.id)
+                    }
+                    if(saveData) {
                         Modal.success({
                             content: 'Successfully',
                             onOk() {
@@ -71,15 +61,13 @@ const ProductAdd = (props) => {
                             },
                             onCancel() { },
                         });
-                    }).catch(() => {
-                        setLoading(false)
+                    } else{
                         Modal.error({
                             content: 'please check productName duplicate',
                         });
-                    })
+                    }
                 } catch (error) {
                     throw error
-                   
                 }
             }else{
                 setValidate(false)
@@ -138,4 +126,18 @@ const ProductAdd = (props) => {
     )
 }
 
-export default Form.create({ name: 'productAdd' })(withRouter(ProductAdd))
+const mapStateToProps = state => {
+    return {
+        loading: state.product.loading
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        save: (params) => dispatch(actions.productAddAsync(params)),
+        uploadImage: (params) => dispatch(actions.productAddImage(params)),
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create({ name: 'productAdd' })(withRouter(ProductAddEdit)))

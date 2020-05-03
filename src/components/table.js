@@ -54,7 +54,7 @@ const TableList = (props) => {
             productQuantity: val.productQuantity,
             productModify: moment(val.productModify).format('DD/MM/YYYY HH:mm:ss'),
             imagePath: <Avatar src={ val.imagePath ? config.service + "/images/" + val.imagePath : null} icon="shop" />,
-            edit: <Link to={`/products/productEdit/${val._id}`}><Modal icon="edit" /></Link>,
+            edit: <Link to={`/products/productAddEdit/${val._id}`}><Modal icon="edit" /></Link>,
             delete: <Modal icon="delete" funcs={() =>
                 func.delete(val._id)}
             />

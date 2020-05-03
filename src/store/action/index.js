@@ -7,5 +7,7 @@ export {
 export {
     productFetch,
     productDelete,
-    productSearch
-} from './list'
+    productSearch,
+    productAddAsync,
+    productAddImage
+} from './product'

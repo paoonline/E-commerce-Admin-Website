@@ -5,3 +5,7 @@ export {
 export {
     listReducer,
 } from './list'
+
+export {
+    productReducer,
+} from './addEditProduct'

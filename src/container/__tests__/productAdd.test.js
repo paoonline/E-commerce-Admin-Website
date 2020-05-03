@@ -1,6 +1,6 @@
 import React from 'react'
 import Root from '../../Root'
-import { ProductAdd } from '../../container'
+import { ProductAddEdit } from '../../container'
 import { mount } from 'enzyme'
 import moxios from 'moxios'
 import axios from 'axios'
@@ -12,7 +12,7 @@ let wrapper
 let onFulfilled = sinon.spy()
 beforeEach(() => {
   moxios.install()
-  wrapper = mount(<Root><ProductAdd /></Root>)
+  wrapper = mount(<Root><ProductAddEdit /></Root>)
 });
 
 afterEach(() => {
