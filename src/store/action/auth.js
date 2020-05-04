@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes'
-import { apiGatewayInstance } from '../../util/axiosInstance'
+import service from '../../util/axiosInstance'
 
 // return new state before login success
 export const authStart = () => {
@@ -42,7 +42,7 @@ export const auth = (email, password, isSignup) => {
             password: password,
         }
 
-        apiGatewayInstance.post('/signin', authData)
+        service().post('/signin', authData)
             .then(res => {
                 localStorage.setItem('token', res.data.token);
                 dispatch(authSuccess(res.data.token))

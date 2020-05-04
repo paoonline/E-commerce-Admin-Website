@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Title, TextValidate } from '../../components'
 import { FlexLogin} from '../../components/style'
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button, Card } from 'antd';
 import { connect } from 'react-redux'
 import * as actions from '../../store/action'
 import { withRouter } from 'react-router-dom'
@@ -29,37 +29,39 @@ const Login = (props) => {
     }, [props, props.isAuthenticated])
 
     return (
-        <FlexLogin>
-            <Title>
-                Welcome
-            </Title>
-            <Form onSubmit={handleSubmit}>
-                <Form.Item>
-                    <Input
-                        id="id"
-                        prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                        placeholder="Email"
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </Form.Item>
-                <Form.Item>
-                    <Input
-                        id="password"
-                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                        type="password"
-                        placeholder="Password"
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" style={{ width: '100%' }} loading={props.loading}>
-                        Log in
-                    </Button>
-                </Form.Item>
-            </Form>
-            {((email === "" || password === "") && requird)  && <TextValidate id="error">Please input information</TextValidate>}
-            <TextValidate id="authen">{props.error} {props.test && "Unauthorized"}</TextValidate>
-        </FlexLogin>
+            <FlexLogin>
+                <Card>
+                    <Title>
+                        Welcome
+                    </Title>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Item>
+                            <Input
+                                id="id"
+                                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                placeholder="Email"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </Form.Item>
+                        <Form.Item>
+                            <Input
+                                id="password"
+                                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                type="password"
+                                placeholder="Password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" style={{ width: '100%' }} loading={props.loading}>
+                                Log in
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                    {((email === "" || password === "") && requird)  && <TextValidate id="error">Please input information</TextValidate>}
+                    <TextValidate id="authen">{props.error} {props.test && "Unauthorized"}</TextValidate>
+                </Card>
+            </FlexLogin>
     )
 }
 

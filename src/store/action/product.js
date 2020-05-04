@@ -1,17 +1,11 @@
 import * as actionTypes from './actionTypes'
-import { apiGatewayInstance } from '../../util/axiosInstance'
-
-const getToken = localStorage.getItem("token")
+import service from '../../util/axiosInstance'
 
 export const productFetch = () => {
     return dispatch => {
         dispatch(productStart())
         try {
-            apiGatewayInstance.get('/product_list', {
-                headers: {
-                    authorization: getToken,
-                },
-            }).then((val) => {
+            service().get('/product_list').then((val) => {
                 dispatch(productSuccess(val.data))
             })
         } catch (error) {
@@ -24,11 +18,7 @@ export const productAddAsync = (params) => {
     return dispatch => {
         dispatch(productAdd())
         try {
-            return apiGatewayInstance.put('/product_create', params, {
-                headers: {
-                    authorization: getToken,
-                }
-            }).then((val) => {
+            return service().put('/product_create', params).then((val) => {
                 dispatch(productSave(true))
                 return {status: true, id: val.data._id}
             }).catch(() => {
@@ -44,10 +34,9 @@ export const productAddAsync = (params) => {
 export const productAddImage = (formData) => {
     return () => {
         try {
-            return apiGatewayInstance.post('/image_upload', formData, {
+            return service().post('/image_upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    authorization: getToken,
                 }
             }).then((val) => {
                 return true
@@ -63,11 +52,7 @@ export const productAddImage = (formData) => {
 export const productSearch = (text) => {
     return dispatch => {
         try {
-            apiGatewayInstance.get(`/product_search?productName=${text}`, {
-                headers: {
-                    authorization: getToken,
-                },
-            }).then((val) => {
+            service().get(`/product_search?productName=${text}`).then((val) => {
                 dispatch(productSuccess(val.data))
             })
         } catch (error) {
@@ -80,11 +65,7 @@ export const productDelete = (id, list) => {
     return dispatch => {
         dispatch(productStart('delete'))
         try {
-            apiGatewayInstance.delete(`/product_delete?_id=${id}`, {
-                headers: {
-                    authorization: getToken,
-                },
-            }).then(() => {
+            service().delete(`/product_delete?_id=${id}`, ).then(() => {
                 dispatch(productSuccess(list, 'delete'))
                 dispatch(productStatusDelete(true))
             }).catch(() => dispatch(productStatusDelete(false)))
@@ -98,12 +79,7 @@ export const getProductEditData = (params) => {
     return dispatch => {
         dispatch(productEditStart())
         try {
-            return apiGatewayInstance.get(`/product_editone?_id=${params}`, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    authorization: getToken,
-                }
-            }).then((res) => {
+            return service().get(`/product_editone?_id=${params}`).then((res) => {
                 dispatch(productEditGet())
                 return res.data
             }).catch(() => {
@@ -120,11 +96,7 @@ export const productEditAsync = (params) => {
     return dispatch => {
         dispatch(productAdd())
         try {
-            return apiGatewayInstance.post('/product_update', params, {
-                headers: {
-                    authorization: getToken,
-                }
-            }).then((val) => {
+            return service().post('/product_update', params).then((val) => {
                 dispatch(productSave(true))
                 return {status: true, id: val.data._id}
             }).catch(() => {
