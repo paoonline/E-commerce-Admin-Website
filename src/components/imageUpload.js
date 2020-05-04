@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Upload, Icon, message } from 'antd';
 import { ImageUploadFile } from '../components/style'
-import config from '../util/config'
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -53,7 +52,7 @@ const ImageUpload = (props) => {
     useEffect(()=>{
         if (props.imagePath && imageUrl === undefined) {
             setState({
-                imageUrl: config.service + "/images/" + props.imagePath
+                imageUrl: props.imagePath
             })
         }
     },[props,imageUrl])
