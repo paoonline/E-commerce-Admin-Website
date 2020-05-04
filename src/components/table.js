@@ -46,7 +46,6 @@ const TableList = (props) => {
     ];
 
     const data = props.data.map((val, i) => {
-        console.log(val.imagePath)
         return {
             key: i + '_' + val.productName,
             no: i + 1,
