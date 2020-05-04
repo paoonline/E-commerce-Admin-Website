@@ -9,5 +9,7 @@ export {
     productDelete,
     productSearch,
     productAddAsync,
-    productAddImage
+    productAddImage,
+    getProductEditData,
+    productEditAsync
 } from './product'

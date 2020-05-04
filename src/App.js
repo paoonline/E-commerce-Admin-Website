@@ -16,6 +16,7 @@ const App = (props) => {
       <Route path="/login" component={() => props.isAuthenticated ? null : AuthenRoute(Login)} />
       <Route exact path="/" component={() => AuthenRoute(<ProductList/>)} />
       <Route path="/products/productList" component={() => AuthenRoute(<ProductList/>)} />
+      <Route path="/products/productAddEdit/:id" component={() => AuthenRoute(<ProductAddEdit/>)} exact/>
       <Route path="/products/productAddEdit" component={() => AuthenRoute(<ProductAddEdit/>)} />
     </Switch>
   )
