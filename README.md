@@ -11,4 +11,4 @@ user super_admin@test.com
 pass super_admin
 
 web admin
-https://ecommerce-admin-43e81.firebaseapp.com/
+https://oauth-242602.firebaseapp.com/
