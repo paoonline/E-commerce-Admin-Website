@@ -29,7 +29,7 @@ const ProductAddEdit = (props) => {
 
     const handleUpload = async (_id) => {
         let formData = new FormData()
-        formData.append('image', imageFile)
+        formData.append('imagePath', imageFile)
         formData.append('_id', _id)
         try {
             const saveData = await uploadImage(formData)
@@ -64,7 +64,7 @@ const ProductAddEdit = (props) => {
                     try {
                         const saveData =  await productEdit(formData)
                         if (imageFile !== null && !!saveData.id) {
-                            handleUpload(saveData.id)
+                            await handleUpload(saveData.id)
                         }
                         if(saveData) {
                             Modal.success({
