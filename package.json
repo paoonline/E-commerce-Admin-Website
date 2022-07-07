@@ -10,7 +10,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "html-to-draftjs": "^1.4.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "moxios": "^0.4.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
